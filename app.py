@@ -233,6 +233,39 @@ def get_cart_total(cart):
 def get_cart_item_count(cart):
     return sum(item["quantity"] for item in cart.values())
 
+def get_total_orders():
+    conn = get_db_connection()
+    total = conn.execute("SELECT COUNT(*) FROM orders").fetchone()[0]
+    conn.close()
+    return total
+
+
+def get_total_revenue():
+    conn = get_db_connection()
+    total = conn.execute("""
+        SELECT COALESCE(SUM(total_amount), 0) FROM orders
+        WHERE payment_status = 'paid'
+    """).fetchone()[0]
+    conn.close()
+    return total
+
+
+def get_total_products():
+    conn = get_db_connection()
+    total = conn.execute("SELECT COUNT(*) FROM products").fetchone()[0]
+    conn.close()
+    return total
+
+
+def get_low_stock_count():
+    conn = get_db_connection()
+    total = conn.execute("""
+        SELECT COUNT(*) FROM products
+        WHERE stock < 5
+    """).fetchone()[0]
+    conn.close()
+    return total
+
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -518,13 +551,28 @@ def reduce_stock_after_order(cart):
     conn.commit()
     conn.close()
 
+def get_low_stock_products():
+    conn = get_db_connection()
+    products = conn.execute("""
+        SELECT * FROM products
+        WHERE stock < 5
+        ORDER BY stock ASC, created_at DESC
+    """).fetchall()
+    conn.close()
+    return products
+
 
 @app.route("/admin")
 def admin():
     if not session.get("admin_logged_in"):
         return redirect(url_for("admin_login"))
 
+    selected_status = request.args.get("status", "").strip()
+
     orders = get_all_orders()
+
+    if selected_status:
+        orders = [order for order in orders if order["order_status"] == selected_status]
 
     orders_with_items = []
     for order in orders:
@@ -534,7 +582,23 @@ def admin():
             "order_items": items
         })
 
-    return render_template("admin.html", orders_with_items=orders_with_items)
+    dashboard_stats = {
+        "total_orders": get_total_orders(),
+        "total_revenue": get_total_revenue(),
+        "total_products": get_total_products(),
+        "low_stock_count": get_low_stock_count()
+    }
+
+    low_stock_products = get_low_stock_products()
+
+    return render_template(
+        "admin.html",
+        orders_with_items=orders_with_items,
+        dashboard_stats=dashboard_stats,
+        selected_status=selected_status,
+        low_stock_products=low_stock_products
+    )
+
 
 @app.route("/admin-login", methods=["GET", "POST"])
 def admin_login():

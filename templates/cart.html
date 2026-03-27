@@ -38,11 +38,20 @@
                     <li class="nav-item">
                         <a class="nav-link premium-nav-link" href="{{ url_for('home') }}">Home</a>
                     </li>
+
+                    {% if session.get('admin_logged_in') %}
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link admin-dashboard-link" href="{{ url_for('admin') }}">
+                            Dashboard
+                        </a>
+                    </li>
+                    {% endif %}
+
                     <li class="nav-item">
                         <a class="btn premium-gold-btn nav-cta" href="{{ url_for('cart') }}">View Cart</a>
                     </li>
                 </ul>
-                            </div>
+            </div>
         </div>
     </nav>
 

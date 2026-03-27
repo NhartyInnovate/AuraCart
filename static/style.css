@@ -1,3 +1,75 @@
+html {
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 767px) {
+    .hero-title,
+    .detail-title,
+    .cart-page-title,
+    .checkout-page-title,
+    .success-title,
+    .admin-page-title {
+        font-size: 1.9rem !important;
+        line-height: 1.15;
+        word-break: break-word;
+    }
+
+    .hero-text,
+    .detail-description,
+    .cart-page-text,
+    .checkout-page-text,
+    .success-text,
+    .admin-page-text,
+    .section-text,
+    .footer-text {
+        font-size: 0.95rem !important;
+        line-height: 1.65;
+    }
+
+    .product-name,
+    .cart-item-name,
+    .admin-card-title,
+    .summary-title,
+    .checkout-panel-title,
+    .success-panel-title {
+        font-size: 1.2rem !important;
+        line-height: 1.3;
+    }
+
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .hero-panel,
+    .product-detail-panel,
+    .cart-summary-panel,
+    .checkout-form-panel,
+    .checkout-summary-panel,
+    .success-panel,
+    .success-detail-panel,
+    .admin-card,
+    .admin-form-panel,
+    .admin-empty-panel,
+    .admin-filter-panel {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+    }
+}
+
+h1, h2, h3, h4, h5, h6, p, a, span {
+    overflow-wrap: break-word;
+}
+
 :root {
     --bg-main: #f8f4ec;
     --bg-soft: #fffaf2;
@@ -105,6 +177,52 @@ body.auracart-body {
 /* Hero */
 .hero-section {
     padding: 36px 0 10px;
+}
+
+@media (max-width: 991px) {
+    .premium-navbar .navbar-collapse {
+        margin-top: 14px;
+        background: rgba(255, 250, 242, 0.97);
+        border: 1px solid rgba(201, 165, 74, 0.12);
+        border-radius: 18px;
+        padding: 14px;
+        box-shadow: 0 10px 24px rgba(94, 77, 43, 0.08);
+    }
+
+    .premium-navbar .navbar-nav {
+        gap: 10px !important;
+        align-items: stretch !important;
+    }
+
+    .premium-navbar .nav-item {
+        width: 100%;
+    }
+
+    .premium-nav-link {
+        display: block;
+        width: 100%;
+        padding: 12px 14px !important;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.65);
+    }
+
+    .premium-nav-link:hover {
+        background: rgba(201, 165, 74, 0.08);
+    }
+
+    .nav-cta,
+    .premium-navbar .premium-gold-btn,
+    .premium-navbar .premium-outline-btn,
+    .premium-navbar .admin-danger-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        display: inline-flex;
+    }
+
+    .brand-logo {
+        font-size: 1.5rem;
+    }
 }
 
 .hero-panel {
@@ -2095,4 +2213,367 @@ textarea {
 .normal-stock {
     color: #2b241b;
     font-weight: 600;
+}
+
+.admin-dashboard-link {
+    color: var(--gold-deep) !important;
+    font-weight: 700;
+}
+
+.admin-dashboard-link:hover {
+    color: #7a5b13 !important;
+}
+
+.admin-stat-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,250,242,0.86));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: var(--shadow-soft);
+    height: 100%;
+}
+
+.admin-stat-label {
+    color: #8f8373;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.admin-stat-value {
+    color: var(--gold-deep);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+    .admin-stat-value {
+        font-size: 1.7rem;
+    }
+}
+
+.admin-filter-panel {
+    background: linear-gradient(135deg, rgba(255,255,255,0.90), rgba(255,250,242,0.84));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: var(--shadow-soft);
+}
+
+/* =========================
+   FINAL MOBILE OPTIMIZATION
+   ========================= */
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+    height: auto;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, a, span, div, small, strong, label, button {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Better container breathing room */
+@media (max-width: 767px) {
+    .container {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+}
+
+/* =========================
+   MOBILE TYPOGRAPHY
+   ========================= */
+@media (max-width: 767px) {
+    .hero-title,
+    .detail-title,
+    .cart-page-title,
+    .checkout-page-title,
+    .success-title,
+    .admin-page-title {
+        font-size: 1.85rem !important;
+        line-height: 1.15 !important;
+        letter-spacing: -0.02em;
+    }
+
+    .section-title,
+    .admin-login-title {
+        font-size: 1.65rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .product-name,
+    .cart-item-name,
+    .summary-title,
+    .checkout-panel-title,
+    .success-panel-title,
+    .admin-card-title {
+        font-size: 1.15rem !important;
+        line-height: 1.3 !important;
+    }
+
+    .hero-text,
+    .detail-description,
+    .cart-page-text,
+    .checkout-page-text,
+    .success-text,
+    .admin-page-text,
+    .section-text,
+    .footer-text,
+    .admin-login-text,
+    .checkout-panel-text,
+    .summary-note,
+    .detail-note {
+        font-size: 0.95rem !important;
+        line-height: 1.65 !important;
+    }
+
+    .section-kicker,
+    .hero-kicker,
+    .luxury-label,
+    .admin-stat-label,
+    .price-label,
+    .quantity-label,
+    .success-label {
+        font-size: 0.74rem !important;
+        letter-spacing: 0.08em;
+    }
+}
+
+/* =========================
+   MOBILE PANEL SPACING
+   ========================= */
+@media (max-width: 767px) {
+    .hero-panel,
+    .product-detail-panel,
+    .detail-extra-panel,
+    .cart-summary-panel,
+    .cart-item-card,
+    .checkout-form-panel,
+    .checkout-summary-panel,
+    .success-panel,
+    .success-detail-panel,
+    .admin-card,
+    .admin-form-panel,
+    .admin-empty-panel,
+    .admin-filter-panel,
+    .admin-login-card,
+    .admin-stat-card,
+    .empty-cart-panel {
+        padding: 18px !important;
+        border-radius: 20px !important;
+    }
+
+    .product-card-body,
+    .cart-item-body {
+        padding: 18px !important;
+    }
+}
+
+/* =========================
+   CLEANER MOBILE NAVBAR
+   ========================= */
+@media (max-width: 991px) {
+    .premium-navbar {
+        padding: 10px 0 !important;
+    }
+
+    .brand-logo {
+        font-size: 1.45rem !important;
+    }
+
+    .premium-navbar .navbar-collapse {
+        margin-top: 14px;
+        background: rgba(255, 250, 242, 0.98);
+        border: 1px solid rgba(201, 165, 74, 0.12);
+        border-radius: 18px;
+        padding: 14px;
+        box-shadow: 0 12px 24px rgba(94, 77, 43, 0.08);
+    }
+
+    .premium-navbar .navbar-nav {
+        gap: 10px !important;
+        align-items: stretch !important;
+    }
+
+    .premium-navbar .nav-item {
+        width: 100%;
+    }
+
+    .premium-nav-link {
+        display: block;
+        width: 100%;
+        padding: 12px 14px !important;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.7);
+        text-align: left;
+    }
+
+    .premium-nav-link:hover {
+        background: rgba(201, 165, 74, 0.08);
+    }
+
+    .nav-cta,
+    .premium-navbar .premium-gold-btn,
+    .premium-navbar .premium-outline-btn,
+    .premium-navbar .admin-danger-btn {
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .admin-dashboard-link {
+        color: var(--gold-deep) !important;
+        font-weight: 700;
+    }
+}
+
+/* =========================
+   MOBILE IMAGE HEIGHTS
+   ========================= */
+@media (max-width: 767px) {
+    .hero-image {
+        height: 260px !important;
+    }
+
+    .product-image,
+    .premium-detail-image {
+        height: 260px !important;
+    }
+
+    .cart-premium-image,
+    .cart-image {
+        min-height: 200px !important;
+        height: 200px !important;
+    }
+
+    .success-order-image,
+    .admin-item-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .admin-preview-image {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* =========================
+   MOBILE FLEX STACK FIXES
+   ========================= */
+@media (max-width: 767px) {
+    .product-bottom,
+    .cart-item-top,
+    .cart-actions-row,
+    .checkout-header,
+    .cart-header,
+    .admin-page-header,
+    .admin-card-top,
+    .success-detail-row,
+    .success-order-item,
+    .checkout-summary-item,
+    .admin-info-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .summary-item-price,
+    .success-order-price,
+    .cart-remove-link {
+        white-space: normal !important;
+    }
+
+    .quantity-group,
+    .admin-status-form {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    .premium-outline-btn-sm,
+    .premium-gold-btn-sm {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+/* =========================
+   SMALLER STAT NUMBERS
+   ========================= */
+@media (max-width: 767px) {
+    .admin-stat-value {
+        font-size: 1.6rem !important;
+    }
+
+    .product-price,
+    .meta-value,
+    .subtotal-value,
+    .total-paid {
+        font-size: 1.05rem !important;
+    }
+}
+
+/* =========================
+   LOADER LESS INTRUSIVE
+   ========================= */
+.page-loader {
+    transition: opacity 0.28s ease, visibility 0.28s ease !important;
+}
+
+/* =========================
+   EXTRA SMALL DEVICES
+   ========================= */
+@media (max-width: 420px) {
+    .hero-title,
+    .detail-title,
+    .cart-page-title,
+    .checkout-page-title,
+    .success-title,
+    .admin-page-title {
+        font-size: 1.65rem !important;
+    }
+
+    .section-title,
+    .admin-login-title {
+        font-size: 1.45rem !important;
+    }
+
+    .hero-panel,
+    .product-detail-panel,
+    .cart-summary-panel,
+    .checkout-form-panel,
+    .checkout-summary-panel,
+    .success-panel,
+    .success-detail-panel,
+    .admin-card,
+    .admin-form-panel,
+    .admin-empty-panel,
+    .admin-filter-panel,
+    .admin-login-card,
+    .admin-stat-card,
+    .empty-cart-panel {
+        padding: 16px !important;
+    }
 }
