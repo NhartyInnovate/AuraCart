@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - AuraCart</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auracart-body">
+
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-inner">
+            <div class="luxury-spinner"></div>
+            <p class="loader-text">Loading AuraCart...</p>
+        </div>
+    </div>
+
+    <div class="bg-animation">
+        <span class="blob blob1"></span>
+        <span class="blob blob2"></span>
+    </div>
+
+    <nav class="navbar navbar-expand-lg premium-navbar">
+        <div class="container">
+            <a class="navbar-brand brand-logo" href="{{ url_for('home') }}">AuraCart Admin</a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminNav">
+                <span class="navbar-toggler-icon custom-toggler"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="adminNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('admin') }}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('admin_products') }}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn premium-outline-btn me-lg-2" href="{{ url_for('home') }}">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn admin-danger-btn" href="{{ url_for('admin_logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="admin-page-section">
+        <div class="container">
+            <div class="admin-page-header fade-up">
+                <div>
+                    <p class="section-kicker mb-2">Inventory</p>
+                    <h1 class="admin-page-title">Manage Products</h1>
+                    <p class="admin-page-text">
+                        Add, edit, and remove perfume listings from the AuraCart storefront.
+                    </p>
+                </div>
+
+                <a href="{{ url_for('admin_add_product') }}" class="btn premium-gold-btn">
+                    Add Product
+                </a>
+            </div>
+
+            {% if products %}
+            <div class="admin-card fade-up">
+                <div class="table-responsive">
+                    <table class="table admin-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th style="width: 180px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>
+                                    <img src="{{ url_for('static', filename='images/' + product.image) }}"
+                                         alt="{{ product.name }}"
+                                         class="admin-item-image">
+                                </td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>₦{{ product.price }}</td>
+                                <td>
+                                    {% if product.stock < 5 %}
+                                        <span class="low-stock-badge">{{ product.stock }} - Low</span>
+                                    {% else %}
+                                        <span class="normal-stock">{{ product.stock }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('admin_edit_product', product_id=product.id) }}" class="btn premium-outline-btn-sm me-2 mb-2 mb-md-0">Edit</a>
+                                    <a href="{{ url_for('admin_delete_product', product_id=product.id) }}"
+                                       class="btn admin-danger-btn-sm"
+                                       onclick="return confirm('Delete this product?')">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <div class="admin-empty-panel fade-up">
+                <h3>No products found</h3>
+                <p>Your inventory is empty right now.</p>
+                <a href="{{ url_for('admin_add_product') }}" class="btn premium-gold-btn mt-3">Add First Product</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("pageLoader");
+            setTimeout(() => loader.classList.add("hidden"), 300);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", function () {
+                    const href = this.getAttribute("href");
+                    if (href && !href.startsWith("#") && !href.startsWith("javascript:")) {
+                        document.getElementById("pageLoader").classList.remove("hidden");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraCart</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auracart-body">
+
+    <!-- Loader -->
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-inner">
+            <div class="luxury-spinner"></div>
+            <p class="loader-text">Loading AuraCart...</p>
+        </div>
+    </div>
+        <div class="bg-animation">
+        <span class="blob blob1"></span>
+        <span class="blob blob2"></span>
+    </div>
+
+
+        <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg premium-navbar">
+        <div class="container">
+            <a class="navbar-brand brand-logo" href="{{ url_for('home') }}">AuraCart</a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon custom-toggler"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="#products">Collection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('cart') }}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn premium-gold-btn nav-cta" href="{{ url_for('cart') }}">View Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-panel">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-6">
+                        <span class="hero-kicker fade-up">Luxury Fragrance House</span>
+                        <h1 class="hero-title fade-up delay-1">
+                            Elegant scents designed for presence, confidence, and memory.
+                        </h1>
+                        <p class="hero-text fade-up delay-2">
+                            AuraCart curates premium perfumes for people who want their presence to be remembered.
+                            Explore refined blends, signature notes, and luxury fragrance experiences in one place.
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-3 mt-4 fade-up delay-3">
+                            <a href="#products" class="btn premium-gold-btn">Shop Now</a>
+                            <a href="{{ url_for('cart') }}" class="btn premium-outline-btn">Go to Cart</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="hero-image-shell fade-up delay-2">
+                            <img src="{{ url_for('static', filename='images/perfume3.jpg') }}" alt="Luxury Perfume" class="hero-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection intro -->
+    <section class="collection-intro">
+        <div class="container text-center">
+            <p class="section-kicker">Signature Collection</p>
+            <h2 class="section-title" id="products">Featured Perfumes</h2>
+            <p class="section-text">
+                A selection of luxury fragrances crafted to elevate your identity and define your style.
+            </p>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products-section pb-5">
+        <div class="container">
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-sm-6 col-xl-4">
+                    <div class="premium-product-card reveal-card">
+                        <div class="product-image-wrap">
+                            <img src="{{ url_for('static', filename='images/' + product.image) }}" class="product-image" alt="{{ product.name }}">
+                            <div class="product-overlay"></div>
+                            <span class="floating-badge">{{ product.category }}</span>
+                        </div>
+
+                        <div class="product-card-body">
+                            <div class="product-top">
+                                <h5 class="product-name">{{ product.name }}</h5>
+                                <p class="product-description">{{ product.description }}</p>
+                            </div>
+
+                            <div class="product-bottom">
+                                <div>
+                                    <p class="price-label">Price</p>
+                                    <h6 class="product-price">₦{{ product.price }}</h6>
+                                </div>
+                                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn premium-gold-btn-sm">
+                                    View Product
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="premium-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <h4 class="footer-brand">AuraCart</h4>
+                    <p class="footer-text">
+                        A refined perfume shopping experience built around elegance, quality, and timeless fragrance.
+                    </p>
+                </div>
+
+                <div class="col-lg-3">
+                    <h6 class="footer-title">Quick Links</h6>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('cart') }}">Cart</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Admin</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <h6 class="footer-title">Aura Note</h6>
+                    <p class="footer-text">
+                        Fragrance is more than scent. It is identity, memory, and atmosphere in one experience.
+                    </p>
+                </div>
+            </div>
+
+            <hr class="footer-line">
+
+            <div class="text-center footer-bottom">
+                <p class="mb-0">AuraCart &copy; 2026. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("pageLoader");
+            setTimeout(() => {
+                loader.classList.add("hidden");
+            }, 300);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", function () {
+                    const href = this.getAttribute("href");
+                    if (href && !href.startsWith("#") && !href.startsWith("javascript:")) {
+                        document.getElementById("pageLoader").classList.remove("hidden");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

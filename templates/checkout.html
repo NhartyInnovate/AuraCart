@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - AuraCart</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auracart-body">
+
+    <!-- Loader -->
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-inner">
+            <div class="luxury-spinner"></div>
+            <p class="loader-text">Loading AuraCart...</p>
+        </div>
+    </div>
+
+    <!-- Background animation -->
+    <div class="bg-animation">
+        <span class="blob blob1"></span>
+        <span class="blob blob2"></span>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg premium-navbar">
+        <div class="container">
+            <a class="navbar-brand brand-logo" href="{{ url_for('home') }}">AuraCart</a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon custom-toggler"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('cart') }}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn premium-gold-btn nav-cta" href="{{ url_for('cart') }}">View Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="checkout-page-section">
+        <div class="container">
+            <div class="checkout-header fade-up">
+                <div>
+                    <p class="section-kicker mb-2">Secure Checkout</p>
+                    <h1 class="checkout-page-title">Complete Your Order</h1>
+                    <p class="checkout-page-text">
+                        Fill in your details below and proceed to payment to complete your AuraCart order.
+                    </p>
+                </div>
+
+                <a href="{{ url_for('cart') }}" class="btn premium-outline-btn">
+                    Back to Cart
+                </a>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} fade-up">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <div class="row g-4 mt-1">
+                <div class="col-lg-7">
+                    <div class="checkout-form-panel fade-up">
+                        <h3 class="checkout-panel-title">Customer Information</h3>
+                        <p class="checkout-panel-text">
+                            Please provide your contact and delivery details accurately.
+                        </p>
+
+                        {% if error %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endif %}
+
+                        <form method="POST" id="checkoutForm">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="luxury-label">Full Name</label>
+                                    <input type="text"
+                                           name="customer_name"
+                                           class="form-control luxury-input"
+                                           value="{{ form_data.customer_name if form_data else '' }}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="luxury-label">Email Address</label>
+                                    <input type="email"
+                                           name="email"
+                                           class="form-control luxury-input"
+                                           value="{{ form_data.email if form_data else '' }}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="luxury-label">Phone Number</label>
+                                    <input type="text"
+                                           name="phone"
+                                           class="form-control luxury-input"
+                                           value="{{ form_data.phone if form_data else '' }}">
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="luxury-label">Delivery Address</label>
+                                    <textarea name="address"
+                                              rows="5"
+                                              class="form-control luxury-input luxury-textarea">{{ form_data.address if form_data else '' }}</textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn premium-gold-btn w-100 checkout-submit-btn mt-4">
+                                Proceed to Payment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="checkout-summary-panel fade-up delay-1">
+                        <p class="section-kicker mb-2">Order Summary</p>
+                        <h3 class="summary-title">Your Selection</h3>
+
+                        <div class="checkout-summary-items">
+                            {% for item in cart.values() %}
+                            <div class="checkout-summary-item">
+                                <div>
+                                    <h6 class="summary-item-name">{{ item.name }}</h6>
+                                    <p class="summary-item-meta">Qty: {{ item.quantity }}</p>
+                                </div>
+                                <div class="summary-item-price">₦{{ item.price * item.quantity }}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="summary-line total-line mt-3">
+                            <span>Total</span>
+                            <span>₦{{ total }}</span>
+                        </div>
+
+                        <p class="summary-note mt-3">
+                            Your payment will be processed securely. Once completed, your order will be recorded automatically.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="premium-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <h4 class="footer-brand">AuraCart</h4>
+                    <p class="footer-text">
+                        A refined perfume shopping experience built around elegance, quality, and timeless fragrance.
+                    </p>
+                </div>
+
+                <div class="col-lg-3">
+                    <h6 class="footer-title">Quick Links</h6>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('cart') }}">Cart</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Admin</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <h6 class="footer-title">Aura Note</h6>
+                    <p class="footer-text">
+                        Fragrance is more than scent. It is identity, memory, and atmosphere in one experience.
+                    </p>
+                </div>
+            </div>
+
+            <hr class="footer-line">
+
+            <div class="text-center footer-bottom">
+                <p class="mb-0">AuraCart &copy; 2026. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("pageLoader");
+            setTimeout(() => {
+                loader.classList.add("hidden");
+            }, 300);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", function () {
+                    const href = this.getAttribute("href");
+                    if (href && !href.startsWith("#") && !href.startsWith("javascript:")) {
+                        document.getElementById("pageLoader").classList.remove("hidden");
+                    }
+                });
+            });
+
+            const checkoutForm = document.getElementById("checkoutForm");
+            if (checkoutForm) {
+                checkoutForm.addEventListener("submit", function () {
+                    document.getElementById("pageLoader").classList.remove("hidden");
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - AuraCart</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auracart-body">
+
+    <!-- Loader -->
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-inner">
+            <div class="luxury-spinner"></div>
+            <p class="loader-text">Loading AuraCart...</p>
+        </div>
+    </div>
+
+    <!-- Background animation -->
+    <div class="bg-animation">
+        <span class="blob blob1"></span>
+        <span class="blob blob2"></span>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg premium-navbar">
+        <div class="container">
+            <a class="navbar-brand brand-logo" href="{{ url_for('home') }}">AuraCart</a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon custom-toggler"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link premium-nav-link" href="{{ url_for('cart') }}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn premium-gold-btn nav-cta" href="{{ url_for('cart') }}">View Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Detail -->
+    <section class="product-page-section">
+        <div class="container">
+            <div class="mb-4 fade-up">
+                <a href="{{ url_for('home') }}" class="back-link">
+                    ← Back to Collection
+                </a>
+            </div>
+
+            <div class="product-detail-panel">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-6">
+                        <div class="product-detail-image-shell fade-up">
+                            <img src="{{ url_for('static', filename='images/' + product.image) }}"
+                                 alt="{{ product.name }}"
+                                 class="product-detail-image premium-detail-image">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="fade-up delay-1">
+                            <span class="detail-category-badge">{{ product.category }}</span>
+                        </div>
+
+                        <h1 class="detail-title fade-up delay-1">{{ product.name }}</h1>
+
+                        <p class="detail-description fade-up delay-2">
+                            {{ product.description }}
+                        </p>
+
+                        <div class="detail-meta fade-up delay-2">
+                            <div class="detail-meta-item">
+                                <span class="meta-label">Price</span>
+                                <span class="meta-value">₦{{ product.price }}</span>
+                            </div>
+
+                            <div class="detail-meta-item">
+                                <span class="meta-label">Stock</span>
+                                <span class="meta-value">{{ product.stock }}</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-note fade-up delay-3">
+                            A carefully curated fragrance selected to elevate your style and leave a lasting impression.
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3 mt-4 fade-up delay-3">
+                            <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn premium-gold-btn btn-lg">
+                                Add to Cart
+                            </a>
+                            <a href="{{ url_for('cart') }}" class="btn premium-outline-btn btn-lg">
+                                Go to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extra Section -->
+            <div class="detail-extra-panel mt-5 fade-up delay-3">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="detail-feature-box">
+                            <h5>Refined Selection</h5>
+                            <p>Chosen for elegance, balance, and strong scent identity.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="detail-feature-box">
+                            <h5>Lasting Impression</h5>
+                            <p>Built around the idea of confidence, memory, and premium presence.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="detail-feature-box">
+                            <h5>Luxury Experience</h5>
+                            <p>AuraCart blends fragrance shopping with a polished premium brand feel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="premium-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <h4 class="footer-brand">AuraCart</h4>
+                    <p class="footer-text">
+                        A refined perfume shopping experience built around elegance, quality, and timeless fragrance.
+                    </p>
+                </div>
+
+                <div class="col-lg-3">
+                    <h6 class="footer-title">Quick Links</h6>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('cart') }}">Cart</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Admin</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <h6 class="footer-title">Aura Note</h6>
+                    <p class="footer-text">
+                        Fragrance is more than scent. It is identity, memory, and atmosphere in one experience.
+                    </p>
+                </div>
+            </div>
+
+            <hr class="footer-line">
+
+            <div class="text-center footer-bottom">
+                <p class="mb-0">AuraCart &copy; 2026. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("pageLoader");
+            setTimeout(() => {
+                loader.classList.add("hidden");
+            }, 300);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", function () {
+                    const href = this.getAttribute("href");
+                    if (href && !href.startsWith("#") && !href.startsWith("javascript:")) {
+                        document.getElementById("pageLoader").classList.remove("hidden");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
