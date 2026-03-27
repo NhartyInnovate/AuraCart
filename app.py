@@ -98,45 +98,19 @@ def seed_products():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    existing_products = cursor.execute("SELECT COUNT(*) FROM products").fetchone()[0]
+    cursor.execute("SELECT COUNT(*) FROM products")
+    count = cursor.fetchone()[0]
 
-    if existing_products == 0:
-        sample_products = [
-            (
-                "Noir Élégance",
-                "A deep woody fragrance with a bold presence.",
-                15000,
-                "perfume1.jpg",
-                "Oud",
-                10
-            ),
-            (
-                "Rose Lumière",
-                "Fresh and aquatic scent for everyday wear.",
-                12000,
-                "perfume2.jpg",
-                "Fresh",
-                15
-            ),
-            (
-                "Oud Mystique",
-                "Warm and rich amber fragrance.",
-                18000,
-                "perfume3.jpg",
-                "Amber",
-                8
-            )
-        ]
-
-        cursor.executemany("""
-            INSERT INTO products (name, description, price, image, category, stock)
+    if count == 0:
+        # only seed if empty
+        cursor.execute("""
+            INSERT INTO products (name, price, image, description, category, stock)
             VALUES (?, ?, ?, ?, ?, ?)
-        """, sample_products)
+        """, ("Sample Perfume", 15000, "perfume1.webp", "Luxury scent", "Men", 10))
 
-    conn.commit()
+        conn.commit()
+
     conn.close()
-
-
 def get_all_products():
     conn = get_db_connection()
     products = conn.execute("""
